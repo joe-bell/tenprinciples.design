@@ -12,6 +12,14 @@
     "preview": "astro preview",
     "astro": "astro"
   },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "engines": {
+    "pnpm": "^7"
+  },
   "dependencies": {
     "astro": "^1.1.5"
   },
