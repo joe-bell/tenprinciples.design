@@ -1,0 +1,37 @@
+---
+import type { MarkdownInstance } from "astro";
+
+const principles = (await Astro.glob(
+  "../principles/*.md"
+)) as MarkdownInstance<{}>[];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>10 Principles for Good Design</title>
+  </head>
+  <body>
+    <header>
+      <h1>10 Principles for Good Design</h1>
+      <p>Dieter Rams</p>
+    </header>
+    <main>
+      <ol class="list-decimal ml-10">
+        {
+          principles.map(({ Content }) => (
+            <li>
+              <Content />
+            </li>
+          ))
+        }
+      </ol>
+    </main>
+    <footer>
+      <p>Words by Dieter Rams</p>
+      <p>Site by <a href="https://joebell.co.uk">Joe Bell</a></p>
+    </footer>
+  </body>
+</html>

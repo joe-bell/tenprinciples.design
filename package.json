@@ -1,0 +1,28 @@
+{
+  "name": "tenprinciples.design",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "commit": "git-cz",
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "postinstall": "[[ \"$CI\" != 'true' ]] && husky install || echo 'Skipping husky install'",
+    "precommit": "lint-staged",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^1.1.5"
+  },
+  "devDependencies": {
+    "@astrojs/tailwind": "1.0.0",
+    "@commitlint/cli": "17.0.3",
+    "@commitlint/config-conventional": "17.0.3",
+    "commitizen": "4.2.5",
+    "cz-conventional-changelog": "3.3.0",
+    "husky": "8.0.1",
+    "lint-staged": "13.0.3",
+    "prettier": "2.7.1"
+  }
+}
