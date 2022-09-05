@@ -62,16 +62,17 @@ const link = [
   <body
     class:list={[
       ["text-zinc-900", "dark:text-zinc-50"],
+      ["bg-white", "dark:bg-zinc-900"],
       "grid",
       "items-center",
       "gap-12",
-      "py-16",
       "px-6",
+      "pt-16",
+      ["pb-12", "sm:pb-16"],
       "h-max",
       "w-full",
       "max-w-[104rem]",
       "mx-auto",
-      "dark:bg-zinc-900",
     ]}
   >
     <header class:list={["flex", "flex-col", "space-y-2"]}>
@@ -87,17 +88,17 @@ const link = [
     <main>
       <ol
         class:list={[
-          "[--gap:2rem]",
-          "[--marker-size:2.2rem]",
+          ["[--gap:1.5rem]", "sm:[--gap:2rem]"],
+          "[--marker-size:2rem]",
           "list-[decimal-leading-zero]",
           "grid",
+          ["sm:grid-cols-[repeat(2,minmax(0,max-content))]", "2xl:grid-cols-5"],
           "gap-x-[calc(var(--gap)+var(--marker-size))]",
           "gap-y-[var(--gap)]",
           "w-[calc(100%-var(--marker-size))]",
           "ml-[var(--marker-size)]",
           "marker:font-semibold",
           "marker:text-lg",
-          ["sm:grid-cols-2", "2xl:grid-cols-5"],
         ]}
       >
         {
@@ -105,8 +106,9 @@ const link = [
             <li
               class:list={[
                 "space-y-2",
-                "max-w-prose",
+                "max-w-[45ch]",
                 ["[&_>_h2]:text-lg", "[&_>_h2]:font-semibold"],
+                ["[&_>_p]:text-base"],
               ]}
             >
               <Content />
