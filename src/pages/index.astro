@@ -1,28 +1,86 @@
 ---
 import type { MarkdownInstance } from "astro";
 
+const config = {
+  canonical: "https://tenprinciples.design",
+  title: "Ten Principles for Good Design",
+  description: "Dieter Rams' Ten Principles for Good Design",
+  author: "Dieter Rams",
+  builder: { name: "Joe Bell", url: "https://joebell.co.uk" },
+  github: "https://github.com/joe-bell/tenprinciples.design",
+  twitter: "@joebell_",
+} as const;
+
 const principles = (await Astro.glob(
   "../principles/*.md"
 )) as MarkdownInstance<{}>[];
 ---
 
-<html lang="en">
+<html lang="en" class:list={["grid", "items-center", "h-full"]}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+
     <meta name="generator" content={Astro.generator} />
-    <title>10 Principles for Good Design</title>
+
+    <title>{config.title}</title>
+
+    <meta name="twitter:site" content={config.twitter} />
+    <meta name="twitter:creator" content={config.twitter} />
+    <meta property="og:url" content={config.canonical} />
+    <meta property="og:title" content={config.title} />
+    <meta property="og:description" content={config.description} />
+
+    <meta name="description" content={config.description} />
+
+    <link rel="canonical" href={config.canonical} />
+
+    <script
+      defer
+      src="/plausible/js/script.js"
+      data-api="/plausible/api/event"
+      data-domain="tenprinciples.design"
+    ></script>
   </head>
-  <body>
+  <body
+    class:list={[
+      ["text-zinc-900", "dark:text-zinc-50"],
+      "grid",
+      "items-center",
+      "gap-6",
+      "py-6",
+      "px-4",
+      "h-max",
+      "w-full",
+      "max-w-[1400px]",
+      "mx-auto",
+      "dark:bg-zinc-900",
+    ]}
+  >
     <header>
-      <h1>10 Principles for Good Design</h1>
-      <p>Dieter Rams</p>
+      <h1 class:list={["text-xl", "font-bold"]}>{config.title}</h1>
+      <p>{config.author}</p>
     </header>
     <main>
-      <ol class="list-decimal ml-10">
+      <ol
+        class:list={[
+          "grid",
+          "gap-6",
+          "w-full",
+          "list-decimal",
+          ["sm:grid-cols-2", "xl:grid-cols-5"],
+        ]}
+      >
         {
           principles.map(({ Content }) => (
-            <li>
+            <li
+              class:list={[
+                "flex",
+                "flex-col",
+                "space-y-2",
+                ["[&_>_h2]:text-lg", "[&_>_h2]:font-semibold"],
+              ]}
+            >
               <Content />
             </li>
           ))
@@ -30,8 +88,16 @@ const principles = (await Astro.glob(
       </ol>
     </main>
     <footer>
-      <p>Words by Dieter Rams</p>
-      <p>Site by <a href="https://joebell.co.uk">Joe Bell</a></p>
+      <ul class:list={["flex", "space-x-6", "divide-x", "divide-current"]}>
+        <li>
+          Built by <a href={config.builder.url} class:list={["underline"]}
+            >{config.builder.name}
+          </a>
+        </li>
+        <li class:list={["pl-6"]}>
+          <a href={config.github} class:list={["underline"]}>View Source</a>
+        </li>
+      </ul>
     </footer>
   </body>
 </html>
