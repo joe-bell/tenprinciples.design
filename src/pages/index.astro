@@ -1,4 +1,6 @@
 ---
+import rawStyles from "../styles/output.css?raw";
+
 import type { MarkdownInstance } from "astro";
 
 const config = {
@@ -25,6 +27,10 @@ const principles = (await Astro.glob(
 
     <title>{config.title}</title>
 
+    <style is:inline set:html={rawStyles}>
+
+    </style>
+
     <meta name="twitter:site" content={config.twitter} />
     <meta name="twitter:creator" content={config.twitter} />
     <meta property="og:url" content={config.canonical} />
@@ -47,9 +53,9 @@ const principles = (await Astro.glob(
       ["text-zinc-900", "dark:text-zinc-50"],
       "grid",
       "items-center",
-      "gap-6",
-      "py-6",
-      "px-4",
+      "gap-8",
+      "py-8",
+      "px-6",
       "h-max",
       "w-full",
       "max-w-[1400px]",
@@ -78,6 +84,7 @@ const principles = (await Astro.glob(
                 "flex",
                 "flex-col",
                 "space-y-2",
+                "max-w-prose",
                 ["[&_>_h2]:text-lg", "[&_>_h2]:font-semibold"],
               ]}
             >
@@ -88,7 +95,7 @@ const principles = (await Astro.glob(
       </ol>
     </main>
     <footer>
-      <ul class:list={["flex", "space-x-6", "divide-x", "divide-current"]}>
+      <ul class:list={["flex", "space-x-6", "divide-x", "divide-zinc-300"]}>
         <li>
           Built by <a href={config.builder.url} class:list={["underline"]}
             >{config.builder.name}

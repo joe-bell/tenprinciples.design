@@ -1,3 +1,6 @@
+# tailwind output
+src/styles/output.css
+
 # build output
 dist/
 
