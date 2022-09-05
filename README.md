@@ -1,45 +1,20 @@
-# tenprinciples.design
+<h1 align="center">
+  tenprinciples.design
+</h1>
 
-Ten Principles for Good Design
+<p align="center">
+  <strong>Dieter Rams' Ten Principles for Good Design</strong>
+</p>
 
-```
-pnpm init astro -- --template minimal
-```
+<p align="center">
+  <strong><a href="https://tenprinciples.design">Visit the Site</a></strong><br/>
+</p>
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command             | Action                                           |
-| :------------------ | :----------------------------------------------- |
-| `pnpm install`      | Installs dependencies                            |
-| `pnpm dev`          | Starts local dev server at `localhost:3000`      |
-| `pnpm build`        | Build your production site to `./dist/`          |
-| `pnpm preview`      | Preview your build locally, before deploying     |
-| `pnpm astro ...`    | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+<p align="center">
+  <a href="https://github.com/joe-bell/loading-disco/blob/main/LICENSE">
+    <img alt="Apache 2.0 License" src="https://badgen.net/github/license/joe-bell/loading-disco" />
+  </a>
+  <a href="https://twitter.com/joebell_">
+    <img alt="Follow @joebell_ on Twitter" src="https://img.shields.io/twitter/follow/joebell_.svg?style=social&label=Follow" />
+  </a>
+</p>
