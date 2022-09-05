@@ -33,6 +33,7 @@ const link = [
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
 
     <meta name="generator" content={Astro.generator} />
 
@@ -47,10 +48,18 @@ const link = [
     <meta property="og:url" content={config.canonical} />
     <meta property="og:title" content={config.title} />
     <meta property="og:description" content={config.description} />
+    <meta
+      property="og:image"
+      content={new URL("og-image.png", config.canonical)}
+    />
 
     <meta name="description" content={config.description} />
 
     <link rel="canonical" href={config.canonical} />
+
+    <link rel="shortcut icon" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <meta name="apple-mobile-web-app-title" content={config.title} />
 
     <script
       defer
