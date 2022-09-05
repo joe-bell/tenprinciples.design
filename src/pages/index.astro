@@ -7,7 +7,10 @@ const config = {
   canonical: "https://tenprinciples.design",
   title: "Ten Principles for Good Design",
   description: "Dieter Rams' Ten Principles for Good Design",
-  author: "Dieter Rams",
+  author: {
+    name: "Dieter Rams",
+    url: "https://en.wikipedia.org/wiki/Dieter_Rams",
+  },
   builder: { name: "Joe Bell", url: "https://joebell.co.uk" },
   github: "https://github.com/joe-bell/tenprinciples.design",
   twitter: "@joebell_",
@@ -16,6 +19,14 @@ const config = {
 const principles = (await Astro.glob(
   "../principles/*.md"
 )) as MarkdownInstance<{}>[];
+
+const link = [
+  "underline",
+  "underline-offset-4",
+  "decoration-zinc-300",
+  "dark:decoration-zinc-500",
+  "hover:decoration-current",
+];
 ---
 
 <html lang="en" class:list={["grid", "items-center", "h-full"]}>
@@ -53,36 +64,46 @@ const principles = (await Astro.glob(
       ["text-zinc-900", "dark:text-zinc-50"],
       "grid",
       "items-center",
-      "gap-8",
-      "py-8",
+      "gap-12",
+      "py-16",
       "px-6",
       "h-max",
       "w-full",
-      "max-w-[1400px]",
+      "max-w-[104rem]",
       "mx-auto",
       "dark:bg-zinc-900",
     ]}
   >
-    <header>
-      <h1 class:list={["text-xl", "font-bold"]}>{config.title}</h1>
-      <p>{config.author}</p>
+    <header class:list={["flex", "flex-col", "space-y-2"]}>
+      <h1 class:list={["text-2xl", "font-bold"]}>
+        {config.title}<span class:list={["text-braun"]}>.</span>
+      </h1>
+      <p>
+        by <a href={config.author.url} class:list={link}
+          >{config.author.name}
+        </a>
+      </p>
     </header>
     <main>
       <ol
         class:list={[
+          "[--gap:2rem]",
+          "[--marker-size:2.2rem]",
+          "list-[decimal-leading-zero]",
           "grid",
-          "gap-6",
-          "w-full",
-          "list-decimal",
-          ["sm:grid-cols-2", "xl:grid-cols-5"],
+          "gap-x-[calc(var(--gap)+var(--marker-size))]",
+          "gap-y-[var(--gap)]",
+          "w-[calc(100%-var(--marker-size))]",
+          "ml-[var(--marker-size)]",
+          "marker:font-semibold",
+          "marker:text-lg",
+          ["sm:grid-cols-2", "2xl:grid-cols-5"],
         ]}
       >
         {
           principles.map(({ Content }) => (
             <li
               class:list={[
-                "flex",
-                "flex-col",
                 "space-y-2",
                 "max-w-prose",
                 ["[&_>_h2]:text-lg", "[&_>_h2]:font-semibold"],
@@ -95,14 +116,21 @@ const principles = (await Astro.glob(
       </ol>
     </main>
     <footer>
-      <ul class:list={["flex", "space-x-6", "divide-x", "divide-zinc-300"]}>
+      <ul
+        class:list={[
+          "flex",
+          "space-x-4",
+          "[&_>_*_+_*]:before:mr-4",
+          "[&_>_*_+_*]:before:content-['•']",
+        ]}
+      >
         <li>
-          Built by <a href={config.builder.url} class:list={["underline"]}
+          Built by <a href={config.builder.url} class:list={link}
             >{config.builder.name}
           </a>
         </li>
-        <li class:list={["pl-6"]}>
-          <a href={config.github} class:list={["underline"]}>View Source</a>
+        <li>
+          <a href={config.github} class:list={link}>View Source</a>
         </li>
       </ul>
     </footer>
