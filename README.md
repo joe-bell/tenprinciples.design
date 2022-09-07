@@ -3,7 +3,7 @@
 </h1>
 
 <p align="center">
-  <strong>Dieter Rams' Ten Principles for Good Design</strong>
+  "Ten Principles for Good Design" by Dieter Rams
 </p>
 
 <p align="center">
