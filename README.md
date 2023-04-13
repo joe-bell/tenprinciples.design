@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/joe-bell/loading-disco/blob/main/LICENSE">
+  <a href="https://github.com/joe-bell/tenprinciples.design/blob/main/LICENSE">
     <img alt="Apache 2.0 License" src="https://badgen.net/github/license/joe-bell/loading-disco" />
   </a>
   <a href="https://twitter.com/joebell_">
