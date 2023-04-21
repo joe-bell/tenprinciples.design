@@ -9,16 +9,24 @@ on:
 jobs:
   pnpm:
     runs-on: ubuntu-latest
-
+    strategy:
+      fail-fast: false
+      matrix:
+        script: ["astro check", "prettier --check", tsc]
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - uses: pnpm/action-setup@v2
         with:
-          version: 7
+          version: 8
+          run_install: false
       - uses: actions/setup-node@v3
         with:
           cache: "pnpm"
           node-version-file: ".nvmrc"
-      - run: pnpm install --frozen-lockfile
-      - name: Check formatting
-        run: pnpx prettier --check .
+      - run: pnpm i
+        shell: bash
+      - name: ${{ matrix.script }}
+        run: pnpm ${{ matrix.script }}
+        shell: bash
