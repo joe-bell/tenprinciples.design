@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "precommit": "lint-staged",
     "commit": "git-cz",
     "dev": "run-p dev:*",
     "dev:astro": "astro dev",
@@ -12,8 +13,8 @@
     "build:astro": "astro build",
     "build:css": "pnpm tailwind --minify",
     "tailwind": "tailwindcss -i ./src/styles/input.css -o ./src/styles/output.css",
+    "preinstall": "npx only-allow pnpm && corepack enable",
     "postinstall": "[[ \"$CI\" != 'true' ]] && husky install || echo 'Skipping husky install'",
-    "precommit": "lint-staged",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -22,11 +23,8 @@
       "@commitlint/config-conventional"
     ]
   },
-  "engines": {
-    "pnpm": "^7"
-  },
   "dependencies": {
-    "astro": "^1.1.5"
+    "astro": "^2.3.0"
   },
   "devDependencies": {
     "@commitlint/cli": "17.0.3",
@@ -37,6 +35,15 @@
     "lint-staged": "13.0.3",
     "npm-run-all": "4.1.5",
     "prettier": "2.7.1",
-    "tailwindcss": "3.1.8"
+    "prettier-plugin-astro": "^0.8.0",
+    "prettier-plugin-packagejson": "^2.4.3",
+    "prettier-plugin-tailwindcss": "^0.2.7",
+    "tailwindcss": "3.1.8",
+    "typescript": "5.0.3"
+  },
+  "packageManager": "pnpm@8.1.0",
+  "engines": {
+    "node": "18",
+    "pnpm": "8"
   }
 }
