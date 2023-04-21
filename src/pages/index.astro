@@ -28,9 +28,7 @@ const link = [
 
     <title>{config.title}</title>
 
-    <style is:inline set:html={rawStyles}>
-
-    </style>
+    <style is:inline set:html={rawStyles}></style>
 
     <meta name="twitter:site" content={config.twitter} />
     <meta name="twitter:creator" content={config.twitter} />
@@ -133,5 +131,10 @@ const link = [
         </li>
       </ul>
     </footer>
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "6a07003b06084dcd99e93eea6c4de309"}'
+    ></script>
   </body>
 </html>
