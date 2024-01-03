@@ -51,6 +51,17 @@ const link = [
     <meta name="apple-mobile-web-app-title" content={config.title} />
 
     <link rel="manifest" href="/manifest.webmanifest" />
+
+    {
+      import.meta.env.PROD && (
+        <script
+          defer
+          src="/plausible/js/script.js"
+          data-api="/plausible/api/event"
+          data-domain="tenprinciples.design"
+        />
+      )
+    }
   </head>
   <body
     class:list={[
@@ -129,10 +140,5 @@ const link = [
         </li>
       </ul>
     </footer>
-    <script
-      defer
-      src="https://static.cloudflareinsights.com/beacon.min.js"
-      data-cf-beacon='{"token": "6a07003b06084dcd99e93eea6c4de309"}'
-    ></script>
   </body>
 </html>
