@@ -6,7 +6,7 @@ export const config = {
     name: "Dieter Rams",
     url: "https://en.wikipedia.org/wiki/Dieter_Rams",
   },
-  builder: { name: "Joe Bell", url: "https://joebell.co.uk" },
+  builder: { name: "Joe Bell", url: "https://joebell.studio" },
   github: "https://github.com/joe-bell/tenprinciples.design",
   twitter: "@joebell_",
 } as const;
