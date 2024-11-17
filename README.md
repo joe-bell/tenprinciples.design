@@ -7,5 +7,5 @@
 </p>
 
 <p align="center">
-  <strong><a href="https://tenprinciples.design">Visit the Site</a></strong><br/>
+  <strong><a href="https://tenprinciples.design">Visit the Site.</a></strong><br/>
 </p>
