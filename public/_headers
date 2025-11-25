@@ -1,2 +1,5 @@
-https://:project.pages.dev/*
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+https://:version.:subdomain.workers.dev/*
   X-Robots-Tag: noindex
