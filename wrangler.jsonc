@@ -1,0 +1,15 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "tenprinciples-design",
+  "workers_dev": true,
+  "preview_urls": true,
+  "compatibility_date": "2025-11-25",
+  "assets": { "directory": "./dist" },
+  "observability": { "enabled": true },
+  "routes": [
+    {
+      "pattern": "tenprinciples.design",
+      "custom_domain": true,
+    },
+  ],
+}

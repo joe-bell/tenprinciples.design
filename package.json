@@ -30,7 +30,8 @@
     "prettier-plugin-packagejson": "2.5.19",
     "prettier-plugin-tailwindcss": "0.7.1",
     "tailwindcss": "4.1.17",
-    "typescript": "5.0.4"
+    "typescript": "5.0.4",
+    "wrangler": "4.48.0"
   },
   "packageManager": "pnpm@10.23.0",
   "engines": {
