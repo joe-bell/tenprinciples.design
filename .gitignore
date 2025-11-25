@@ -2,6 +2,8 @@
 src/styles/output.css
 
 # build output
+.astro
+.wrangler
 dist/
 
 # dependencies

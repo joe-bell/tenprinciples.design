@@ -1,5 +1,9 @@
 {
-  "editor.quickSuggestions": {
-    "strings": "on"
+  "astro.content-intellisense": true,
+  "prettier.documentSelectors": ["**/*.astro"],
+  "tailwindCSS.classAttributes": ["class", "class:list"],
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "[astro]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }

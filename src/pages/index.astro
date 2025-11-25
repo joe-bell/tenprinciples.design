@@ -1,13 +1,10 @@
 ---
 import rawStyles from "../styles/output.css?raw";
 
-import type { MarkdownInstance } from "astro";
-
 import { config } from "../config";
+import { getCollection, render } from "astro:content";
 
-const principles = (await Astro.glob(
-  "../principles/*.md"
-)) as MarkdownInstance<{}>[];
+const principles = await getCollection("principles");
 
 const link = [
   "underline",
@@ -34,17 +31,25 @@ const link = [
     <meta name="twitter:creator" content={config.twitter} />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <meta property="og:url" content={config.canonical} />
+    <meta
+      property="og:url"
+      property="og:url"
+      content={new URL(Astro.url.pathname, Astro.url.origin).href
+        // remove trailing slash
+        .replace(/\/+$/, "")}
+    />
     <meta property="og:title" content={config.title} />
     <meta property="og:description" content={config.description} />
-    <meta
-      property="og:image"
-      content={new URL("og-image.png", config.canonical)}
-    />
+    <meta property="og:image" content={new URL("og-image.png", config.site)} />
 
     <meta name="description" content={config.description} />
 
-    <link rel="canonical" href={config.canonical} />
+    <link
+      rel="canonical"
+      href={new URL(Astro.url.pathname, Astro.site).href
+        // remove trailing slash
+        .replace(/\/+$/, "")}
+    />
 
     <link rel="shortcut icon" href="/favicon@192px.png" />
     <link rel="apple-touch-icon" href="/favicon@192px.png" />
@@ -53,13 +58,20 @@ const link = [
     <link rel="manifest" href="/manifest.webmanifest" />
 
     {
-      import.meta.env.PROD && (
-        <script
-          defer
-          src="/workers/p/js/script.js"
-          data-api="/workers/p/api/event"
-          data-domain="tenprinciples.design"
-        />
+      Astro.url.origin === config.site && (
+        <>
+          <script
+            is:inline
+            defer
+            src="/p/js/script.js"
+            data-api="/p/api/event"
+            data-domain="tenprinciples.design"
+          />
+          {/* prettier-ignore */}
+          <script is:inline>
+            window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }
+          </script>
+        </>
       )
     }
   </head>
@@ -75,7 +87,7 @@ const link = [
       ["pb-12", "sm:pb-16"],
       "h-max",
       "w-full",
-      "max-w-[104rem]",
+      "max-w-416",
       "mx-auto",
     ]}
   >
@@ -98,26 +110,48 @@ const link = [
           "grid",
           ["sm:grid-cols-[repeat(2,minmax(0,max-content))]", "2xl:grid-cols-5"],
           "gap-x-[calc(var(--gap)+var(--marker-size))]",
-          "gap-y-[var(--gap)]",
+          "gap-y-(--gap)",
           "w-[calc(100%-var(--marker-size))]",
-          "ml-[var(--marker-size)]",
+          "ml-(--marker-size)",
           "marker:font-semibold",
           "marker:text-lg",
         ]}
       >
         {
-          principles.map(({ Content }) => (
-            <li
-              class:list={[
-                "space-y-2",
-                "max-w-[45ch]",
-                ["[&_>_h2]:text-lg", "[&_>_h2]:font-semibold"],
-                ["[&_>_p]:text-base"],
-              ]}
-            >
-              <Content />
-            </li>
-          ))
+          Promise.all(
+            principles
+              .sort((a, b) => {
+                const aId = a.id.split("-")[0];
+                const bId = b.id.split("-")[0];
+
+                if (typeof aId === "undefined" || typeof bId === "undefined")
+                  throw new Error(`Invalid ID of "${a.id}" or "${b.id}".`);
+
+                const aIndex = Number.parseInt(aId, 10);
+                const bIndex = Number.parseInt(bId, 10);
+
+                if (isNaN(aIndex) || isNaN(bIndex))
+                  throw new Error(`Invalid ID of "${a.id}" or "${b.id}".`);
+
+                return aIndex - bIndex;
+              })
+              .map(async (principle) => {
+                const { Content } = await render(principle);
+
+                return (
+                  <li
+                    class:list={[
+                      "space-y-2",
+                      "max-w-[45ch]",
+                      ["*:[h2]:text-lg", "*:[h2]:font-semibold"],
+                      ["*:[p]:text-base"],
+                    ]}
+                  >
+                    <Content />
+                  </li>
+                );
+              }),
+          )
         }
       </ol>
     </main>
@@ -126,8 +160,8 @@ const link = [
         class:list={[
           "flex",
           "space-x-4",
-          "[&_>_*_+_*]:before:mr-4",
-          "[&_>_*_+_*]:before:content-['•']",
+          "*:[&+*]:before:mr-4",
+          "*:[&+*]:before:content-['•']",
         ]}
       >
         <li>

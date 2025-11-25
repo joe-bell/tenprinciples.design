@@ -1,5 +1,5 @@
 export const config = {
-  canonical: "https://tenprinciples.design",
+  site: "https://tenprinciples.design",
   title: "Ten Principles for Good Design",
   description: "Dieter Rams' Ten Principles for Good Design",
   author: {

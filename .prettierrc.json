@@ -1,0 +1,16 @@
+{
+  "plugins": [
+    "prettier-plugin-packagejson",
+    "prettier-plugin-astro",
+    "prettier-plugin-tailwindcss"
+  ],
+  "tailwindStylesheet": "./src/styles/input.css",
+  "overrides": [
+    {
+      "files": "*.astro",
+      "options": {
+        "parser": "astro"
+      }
+    }
+  ]
+}

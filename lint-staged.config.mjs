@@ -1,11 +1,10 @@
 const config = {
   "**/*": (filenames) => [
-    `pnpm prettier --ignore-unknown --no-error-on-unmatched-pattern -w -- ${filenames
+    `pnpm prettier --write ${filenames
       .map((filename) => `'${filename}'`)
       .join(" ")}`,
   ],
-  "*.astro": () => "pnpm astro check",
-  "*.{astro,mdx,cjs,mjs,js,jsx,svelte,ts,tsx,vue}": () => "pnpm tsc",
+  "*.{astro,md,mdx,html,cjs,mjs,js,jsx,svelte,ts,tsx,vue}": () => "astro check",
 };
 
 export default config;
