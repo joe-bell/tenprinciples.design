@@ -1,4 +1,4 @@
-import { config } from "./config";
+import { config } from "@/config";
 
 export function isProduction(url: URL) {
   return url.origin === config.site;
