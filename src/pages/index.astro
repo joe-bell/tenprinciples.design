@@ -1,178 +1,85 @@
 ---
-import rawStyles from "../styles/output.css?raw";
-
 import { config } from "../config";
 import { getCollection, render } from "astro:content";
+import Root from "../layouts/root.astro";
 
 const principles = await getCollection("principles");
 
 const link = [
   "underline",
   "underline-offset-4",
-  "decoration-zinc-300",
+  "decoration-zinc-400",
   "dark:decoration-zinc-500",
   "hover:decoration-current",
 ];
 ---
 
-<html lang="en" class:list={["grid", "items-center", "h-full"]}>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+<Root>
+  <header class="flex flex-col space-y-2">
+    <h1 class="text-2xl font-bold">
+      {config.title}<span class="text-braun">.</span>
+    </h1>
+    <p>
+      by <a href={config.author.url} class:list={link}>{config.author.name} </a>
+    </p>
+  </header>
+  <main>
+    <ol
+      class:list={[
+        "[---gap:2rem]",
+        "[---marker-size:2.25rem]",
+        "list-[decimal-leading-zero]",
+        "grid",
+        "sm:grid-cols-[repeat(2,minmax(0,max-content))] 2xl:grid-cols-5",
+        "gap-x-[calc(var(---gap)+var(---marker-size))]",
+        "gap-y-(---gap)",
+        "w-[calc(100%-var(---marker-size))]",
+        "ml-(---marker-size)",
+        "marker:font-semibold",
+        "marker:text-lg",
+      ]}
+    >
+      {
+        Promise.all(
+          principles
+            .sort((a, b) => {
+              const aId = a.id.split("-")[0];
+              const bId = b.id.split("-")[0];
 
-    <meta name="generator" content={Astro.generator} />
+              if (typeof aId === "undefined" || typeof bId === "undefined")
+                throw new Error(`Invalid ID of "${a.id}" or "${b.id}".`);
 
-    <title>{config.title}</title>
+              const aIndex = Number.parseInt(aId, 10);
+              const bIndex = Number.parseInt(bId, 10);
 
-    <style is:inline set:html={rawStyles}></style>
+              if (isNaN(aIndex) || isNaN(bIndex))
+                throw new Error(`Invalid ID of "${a.id}" or "${b.id}".`);
 
-    <meta name="twitter:site" content={config.twitter} />
-    <meta name="twitter:creator" content={config.twitter} />
-    <meta name="twitter:card" content="summary_large_image" />
+              return aIndex - bIndex;
+            })
+            .map(async (principle) => {
+              const { Content } = await render(principle);
 
-    <meta
-      property="og:url"
-      property="og:url"
-      content={new URL(Astro.url.pathname, Astro.url.origin).href
-        // remove trailing slash
-        .replace(/\/+$/, "")}
-    />
-    <meta property="og:title" content={config.title} />
-    <meta property="og:description" content={config.description} />
-    <meta property="og:image" content={new URL("og-image.png", config.site)} />
-
-    <meta name="description" content={config.description} />
-
-    <link
-      rel="canonical"
-      href={new URL(Astro.url.pathname, Astro.site).href
-        // remove trailing slash
-        .replace(/\/+$/, "")}
-    />
-
-    <link rel="shortcut icon" href="/favicon@192px.png" />
-    <link rel="apple-touch-icon" href="/favicon@192px.png" />
-    <meta name="apple-mobile-web-app-title" content={config.title} />
-
-    <link rel="manifest" href="/manifest.webmanifest" />
-
-    {
-      Astro.url.origin === config.site && (
-        <>
-          <script
-            is:inline
-            defer
-            src="/p/js/script.js"
-            data-api="/p/api/event"
-            data-domain="tenprinciples.design"
-          />
-          {/* prettier-ignore */}
-          <script is:inline>
-            window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }
-          </script>
-        </>
-      )
-    }
-  </head>
-  <body
-    class:list={[
-      ["text-zinc-900", "dark:text-zinc-50"],
-      ["bg-white", "dark:bg-zinc-900"],
-      "grid",
-      "items-center",
-      "gap-12",
-      "px-6",
-      "pt-16",
-      ["pb-12", "sm:pb-16"],
-      "h-max",
-      "w-full",
-      "max-w-416",
-      "mx-auto",
-    ]}
-  >
-    <header class:list={["flex", "flex-col", "space-y-2"]}>
-      <h1 class:list={["text-2xl", "font-bold"]}>
-        {config.title}<span class:list={["text-braun"]}>.</span>
-      </h1>
-      <p>
-        by <a href={config.author.url} class:list={link}
-          >{config.author.name}
+              return (
+                <li class="max-w-[45ch] space-y-2 *:[h2]:text-lg *:[h2]:font-semibold *:[p]:text-base">
+                  <Content />
+                </li>
+              );
+            }),
+        )
+      }
+    </ol>
+  </main>
+  <footer>
+    <ul class="flex space-x-4 *:[&+*]:before:mr-4 *:[&+*]:before:content-['•']">
+      <li>
+        Built by <a href={config.builder.url} class:list={link}
+          >{config.builder.name}
         </a>
-      </p>
-    </header>
-    <main>
-      <ol
-        class:list={[
-          "[--gap:2rem]",
-          "[--marker-size:2.25rem]",
-          "list-[decimal-leading-zero]",
-          "grid",
-          ["sm:grid-cols-[repeat(2,minmax(0,max-content))]", "2xl:grid-cols-5"],
-          "gap-x-[calc(var(--gap)+var(--marker-size))]",
-          "gap-y-(--gap)",
-          "w-[calc(100%-var(--marker-size))]",
-          "ml-(--marker-size)",
-          "marker:font-semibold",
-          "marker:text-lg",
-        ]}
-      >
-        {
-          Promise.all(
-            principles
-              .sort((a, b) => {
-                const aId = a.id.split("-")[0];
-                const bId = b.id.split("-")[0];
-
-                if (typeof aId === "undefined" || typeof bId === "undefined")
-                  throw new Error(`Invalid ID of "${a.id}" or "${b.id}".`);
-
-                const aIndex = Number.parseInt(aId, 10);
-                const bIndex = Number.parseInt(bId, 10);
-
-                if (isNaN(aIndex) || isNaN(bIndex))
-                  throw new Error(`Invalid ID of "${a.id}" or "${b.id}".`);
-
-                return aIndex - bIndex;
-              })
-              .map(async (principle) => {
-                const { Content } = await render(principle);
-
-                return (
-                  <li
-                    class:list={[
-                      "space-y-2",
-                      "max-w-[45ch]",
-                      ["*:[h2]:text-lg", "*:[h2]:font-semibold"],
-                      ["*:[p]:text-base"],
-                    ]}
-                  >
-                    <Content />
-                  </li>
-                );
-              }),
-          )
-        }
-      </ol>
-    </main>
-    <footer>
-      <ul
-        class:list={[
-          "flex",
-          "space-x-4",
-          "*:[&+*]:before:mr-4",
-          "*:[&+*]:before:content-['•']",
-        ]}
-      >
-        <li>
-          Built by <a href={config.builder.url} class:list={link}
-            >{config.builder.name}
-          </a>
-        </li>
-        <li>
-          <a href={config.github} class:list={link}>View Source</a>
-        </li>
-      </ul>
-    </footer>
-  </body>
-</html>
+      </li>
+      <li>
+        <a href={config.github} class:list={link}>View Source</a>
+      </li>
+    </ul>
+  </footer>
+</Root>

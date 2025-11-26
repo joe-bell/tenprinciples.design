@@ -1,0 +1,92 @@
+---
+import rawStyles from "../styles/output.css?raw";
+import { config } from "../config";
+import { isProduction } from "../utils";
+
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<html
+  lang="en"
+  class="grid h-full items-center bg-zinc-50 motion-safe:scroll-smooth dark:bg-zinc-950"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title ? `${title} | ${config.title}` : config.title}</title>
+
+    <style is:inline set:html={rawStyles}></style>
+
+    <meta name="twitter:site" content={config.twitter} />
+    <meta name="twitter:creator" content={config.twitter} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta
+      property="og:url"
+      property="og:url"
+      content={new URL(Astro.url.pathname, Astro.url.origin).href
+        // remove trailing slash
+        .replace(/\/+$/, "")}
+    />
+    <meta property="og:title" content={title || config.title} />
+    <meta
+      property="og:description"
+      content={description || config.description}
+    />
+    <meta property="og:image" content={new URL("og-image.png", config.site)} />
+
+    <meta name="description" content={description || config.description} />
+
+    <link
+      rel="canonical"
+      href={new URL(Astro.url.pathname, Astro.site).href
+        // remove trailing slash
+        .replace(/\/+$/, "")}
+    />
+
+    <link rel="shortcut icon" href="/favicon@192px.png" />
+    <link rel="apple-touch-icon" href="/favicon@192px.png" />
+    <meta name="apple-mobile-web-app-title" content={config.title} />
+
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    {
+      isProduction(Astro.url) && (
+        <>
+          <script
+            is:inline
+            defer
+            src="/p/js/script.js"
+            data-api="/p/api/event"
+            data-domain="tenprinciples.design"
+          />
+          {/* prettier-ignore */}
+          <script is:inline>
+            window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }
+          </script>
+        </>
+      )
+    }
+  </head>
+  <body
+    class:list={[
+      "text-zinc-700 dark:text-zinc-300",
+      "grid items-center gap-12",
+      "px-6 pt-16 pb-12 sm:pb-16",
+      "h-max w-full",
+      "mx-auto max-w-416",
+      "font-sans text-base antialiased [text-size-adjust:100%]",
+    ]}
+  >
+    <slot />
+  </body>
+</html>
