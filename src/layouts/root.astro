@@ -1,7 +1,6 @@
 ---
 import rawStyles from "@/styles/output.css?raw";
 import { config } from "@/config";
-import { isProduction } from "@/utils";
 
 export interface Props {
   title?: string;
@@ -59,23 +58,15 @@ const { title, description } = Astro.props;
 
     <link rel="manifest" href="/manifest.webmanifest" />
 
-    {
-      isProduction(Astro.url) && (
-        <>
-          <script
-            is:inline
-            defer
-            src="/p/js/script.js"
-            data-api="/p/api/event"
-            data-domain="tenprinciples.design"
-          />
-          {/* prettier-ignore */}
-          <script is:inline>
-            window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }
-          </script>
-        </>
-      )
-    }
+    <script>
+      import { init } from "@plausible-analytics/tracker";
+      init({
+        domain: "tenprinciples.design",
+        endpoint: "/api/event",
+        outboundLinks: true,
+        captureOnLocalhost: true,
+      });
+    </script>
   </head>
   <body
     class:list={[

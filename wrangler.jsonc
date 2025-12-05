@@ -3,11 +3,14 @@
   "name": "tenprinciples-design",
   "workers_dev": true,
   "preview_urls": true,
+  "main": "dist/_worker.js/index.js",
   "compatibility_date": "2025-11-25",
   "assets": {
+    "binding": "ASSETS",
     "directory": "./dist",
     "not_found_handling": "404-page",
   },
+  "observability": { "enabled": true },
   "routes": [
     {
       "pattern": "tenprinciples.design",

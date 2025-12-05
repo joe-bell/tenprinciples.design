@@ -11,6 +11,9 @@ importers:
       '@astrojs/check':
         specifier: 0.9.5
         version: 0.9.5(prettier-plugin-astro@0.14.1)(prettier@3.5.3)(typescript@5.0.4)
+      '@plausible-analytics/tracker':
+        specifier: 0.4.4
+        version: 0.4.4
       astro:
         specifier: ^5.16.0
         version: 5.16.0(@types/node@22.14.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.53.3)(typescript@5.0.4)(yaml@2.8.1)
@@ -905,6 +908,9 @@ packages:
   '@pkgr/core@0.2.9':
     resolution: {integrity: sha512-QNqXyfVS2wm9hweSYD2O7F0G06uurj9kZ96TRQE5Y9hU7+tgdZwIkbAKc5Ocy1HxEY2kuDQa6cQ1WRs/O5LFKA==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
+
+  '@plausible-analytics/tracker@0.4.4':
+    resolution: {integrity: sha512-fz0NOYUEYXtg1TBaPEEvtcBq3FfmLFuTe1VZw4M8sTWX129br5dguu3M15+plOQnc181ShYe67RfwhKgK89VnA==}
 
   '@poppinss/colors@4.1.5':
     resolution: {integrity: sha512-FvdDqtcRCtz6hThExcFOgW0cWX+xwSMWcRuQe5ZEb2m7cVQOAVZOIMt+/v9RxGiD9/OY16qJBXK4CVKWAPalBw==}
@@ -3505,6 +3511,8 @@ snapshots:
       '@parcel/watcher-win32-x64': 2.5.1
 
   '@pkgr/core@0.2.9': {}
+
+  '@plausible-analytics/tracker@0.4.4': {}
 
   '@poppinss/colors@4.1.5':
     dependencies:
