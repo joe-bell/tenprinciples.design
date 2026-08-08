@@ -31,8 +31,12 @@ jobs:
     # Public repo: only Joe can trigger Claude. github.actor covers all three
     # event types uniformly and is stricter than the action's built-in
     # write-access check, which repo collaborators would also pass.
+    # `triggering_actor` is checked too: a re-run keeps `github.actor` as
+    # whoever sent the original event and names the re-runner separately, so
+    # actor alone would let a future collaborator replay a write-capable job
+    # from one of Joe's comments.
     if: |
-      github.actor == 'joe-bell' && (
+      github.actor == 'joe-bell' && github.triggering_actor == 'joe-bell' && (
         (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
         (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
         (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude'))
@@ -41,9 +45,9 @@ jobs:
     timeout-minutes: 20
     permissions:
       contents: write # push commits to branches
-      pull-requests: write # open PRs, comment
-      issues: write # comment on issues
-      id-token: write # the action's GitHub App auth
+      pull-requests: write # read PR data, post review comments
+      issues: write # PR conversation comments, via the issues API
+      id-token: write # OIDC exchange for the action's app token
       actions: read # read CI results on PRs
     steps:
       # `ref` is load-bearing, not tidiness. Omitting it does NOT mean "base
@@ -64,17 +68,17 @@ jobs:
           # failing CI run gets it a token that cannot read workflow logs.
           additional_permissions: |
             actions: read
-          # This repository is public and CONTRIBUTING.md invites outside PRs,
-          # so comment bodies are attacker-controlled text fed to Claude as
-          # input. The actor gate above stops a stranger *triggering* the job;
-          # this stops their prose reaching Claude at all. The action's own
-          # security guidance recommends an allowlist on public repos.
+          # This repo is public and CONTRIBUTING.md invites outside PRs, so
+          # comment bodies are attacker-controlled text fed to Claude as input.
+          # The actor gate above stops a stranger *triggering* the job; this
+          # allowlist — which the action's own security guidance recommends for
+          # public repos — stops their prose reaching Claude at all.
           #
-          # `claude[bot]` is listed too, and is not optional: without it Claude
-          # cannot see its own previous replies, so a follow-up like "apply your
-          # second suggestion" loses the thing it refers to.
+          # `claude[bot]` is not optional: without it Claude cannot see its own
+          # previous replies, so "apply your second suggestion" loses its
+          # referent.
           #
           # Trade-off: Claude won't see a contributor's comments on their own
-          # PR — point it at the diff instead. Widen the list if that becomes
-          # the common case.
+          # PR — point it at the diff instead, or widen the list if that
+          # becomes the common case.
           include_comments_by_actor: joe-bell,claude[bot]
