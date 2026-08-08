@@ -52,3 +52,13 @@ jobs:
       - uses: anthropics/claude-code-action@6b082c41935b4c8a3b8b0ef85ba4ba4d9eeb8975 # v1.0.189
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          # This repository is public and CONTRIBUTING.md invites outside PRs,
+          # so comment bodies are attacker-controlled text fed to Claude as
+          # input. The actor gate above stops a stranger *triggering* the job;
+          # this stops their prose reaching Claude at all. The action's own
+          # security guidance recommends an allowlist on public repos.
+          #
+          # Trade-off: Claude won't see a contributor's comments on their own
+          # PR — point it at the diff instead. Widen the list if that becomes
+          # the common case.
+          include_comments_by_actor: joe-bell
