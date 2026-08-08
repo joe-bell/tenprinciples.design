@@ -24,7 +24,7 @@ Public repo, public site, open to outside contributions.
 
 ```sh
 pnpm install
-pnpm dev      # localhost:3000
+pnpm dev
 pnpm build    # build:css + astro check + astro build
 pnpm preview
 ```

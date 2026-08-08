@@ -40,8 +40,8 @@ nothing validates content shape. That check is yours.
 
 ## 3. CI does not build the site
 
-`pnpm build` is `build:css && astro check && astro build`; CI runs none of it. For anything
-touching `src/`, run `pnpm build` locally before approving.
+`pnpm build` is `build:css && astro check && astro build`. For anything touching `src/`,
+run it locally before approving.
 
 Tailwind is a separate step: `build:css` writes `src/styles/output.css`, which is gitignored
 and inlined into every page via `?raw` in `src/layouts/root.astro`. A bad class name or a
