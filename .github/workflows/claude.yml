@@ -58,13 +58,23 @@ jobs:
       - uses: anthropics/claude-code-action@6b082c41935b4c8a3b8b0ef85ba4ba4d9eeb8975 # v1.0.189
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          # The job-level `actions: read` above governs the workflow token. The
+          # action mints its own GitHub App token, and only requests non-default
+          # scopes it is told to — so without this, asking Claude to look at a
+          # failing CI run gets it a token that cannot read workflow logs.
+          additional_permissions: |
+            actions: read
           # This repository is public and CONTRIBUTING.md invites outside PRs,
           # so comment bodies are attacker-controlled text fed to Claude as
           # input. The actor gate above stops a stranger *triggering* the job;
           # this stops their prose reaching Claude at all. The action's own
           # security guidance recommends an allowlist on public repos.
           #
+          # `claude[bot]` is listed too, and is not optional: without it Claude
+          # cannot see its own previous replies, so a follow-up like "apply your
+          # second suggestion" loses the thing it refers to.
+          #
           # Trade-off: Claude won't see a contributor's comments on their own
           # PR — point it at the diff instead. Widen the list if that becomes
           # the common case.
-          include_comments_by_actor: joe-bell
+          include_comments_by_actor: joe-bell,claude[bot]
