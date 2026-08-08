@@ -1,0 +1,84 @@
+# Claude Code, interactive mode only.
+#
+# There is no `prompt` input, so the action only ever runs in response to a human
+# writing `@claude` — it never runs unattended and cannot self-trigger.
+#
+# Auth is the `CLAUDE_CODE_OAUTH_TOKEN` repo secret (generate it with
+# `claude setup-token`).
+#
+# Issues are disabled on this repo, so the `issues` trigger is omitted — re-add it
+# alongside its `if:` clause if issues are ever turned on. `issues: write` is kept
+# regardless: pull request conversation comments are posted through the issues API.
+name: claude
+
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  pull_request_review:
+    types: [submitted]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: claude-${{ github.event.issue.number || github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  claude:
+    # Public repo: only Joe can trigger Claude. github.actor covers all three
+    # event types uniformly and is stricter than the action's built-in
+    # write-access check, which repo collaborators would also pass.
+    # `triggering_actor` is checked too: a re-run keeps `github.actor` as
+    # whoever sent the original event and names the re-runner separately, so
+    # actor alone would let a future collaborator replay a write-capable job
+    # from one of Joe's comments.
+    if: |
+      github.actor == 'joe-bell' && github.triggering_actor == 'joe-bell' && (
+        (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
+        (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
+        (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude'))
+      )
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write # push commits to branches
+      pull-requests: write # read PR data, post review comments
+      issues: write # PR conversation comments, via the issues API
+      id-token: write # OIDC exchange for the action's app token
+      actions: read # read CI results on PRs
+    steps:
+      # `ref` is load-bearing, not tidiness. Omitting it does NOT mean "base
+      # branch": for `pull_request_review` and `pull_request_review_comment`
+      # GitHub sets the triggering ref to `refs/pull/<n>/merge`, so the default
+      # checkout would place contributor-authored code in the workspace of a job
+      # holding `contents: write`. Pin to the default branch instead.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 1
+      - uses: anthropics/claude-code-action@6b082c41935b4c8a3b8b0ef85ba4ba4d9eeb8975 # v1.0.189
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          # The job-level `actions: read` above governs the workflow token. The
+          # action mints its own GitHub App token, and only requests non-default
+          # scopes it is told to — so without this, asking Claude to look at a
+          # failing CI run gets it a token that cannot read workflow logs.
+          additional_permissions: |
+            actions: read
+          # This repo is public and CONTRIBUTING.md invites outside PRs, so
+          # comment bodies are attacker-controlled text fed to Claude as input.
+          # The actor gate above stops a stranger *triggering* the job; this
+          # allowlist — which the action's own security guidance recommends for
+          # public repos — stops their prose reaching Claude at all.
+          #
+          # `claude[bot]` is not optional: without it Claude cannot see its own
+          # previous replies, so "apply your second suggestion" loses its
+          # referent.
+          #
+          # Trade-off: Claude won't see a contributor's comments on their own
+          # PR — point it at the diff instead, or widen the list if that
+          # becomes the common case.
+          include_comments_by_actor: joe-bell,claude[bot]
