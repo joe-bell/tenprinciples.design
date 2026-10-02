@@ -1,0 +1,42 @@
+# Version updates arrive as one grouped pull request a month (on the 22nd),
+# covering npm and GitHub Actions together, so CI and the preview build run
+# once. Security updates are unaffected: each advisory still opens its own pull
+# request straight away.
+#
+# - `cooldown` skips releases younger than seven days, a buffer against
+#   compromised or quickly yanked releases.
+# - `rebase-strategy: disabled` stops Dependabot rebasing the pull request
+#   after every merge to `main`, each of which would re-run CI. Branches need
+#   not be up to date to merge; on a conflict, comment `@dependabot rebase`.
+# - `versioning-strategy: increase` raises the exact pin rather than widening
+#   it into a range.
+# - GitHub Actions are checked in the workflows and in the composite actions
+#   under `.github/actions/`.
+version: 2
+multi-ecosystem-groups:
+  monthly:
+    schedule:
+      interval: cron
+      cronjob: "0 9 22 * *"
+    commit-message:
+      prefix: deps
+
+updates:
+  - package-ecosystem: npm
+    directory: /
+    patterns: ["*"]
+    multi-ecosystem-group: monthly
+    cooldown:
+      default-days: 7
+    rebase-strategy: disabled
+    versioning-strategy: increase
+
+  - package-ecosystem: github-actions
+    directories:
+      - /
+      - /.github/actions/*
+    patterns: ["*"]
+    multi-ecosystem-group: monthly
+    cooldown:
+      default-days: 7
+    rebase-strategy: disabled
