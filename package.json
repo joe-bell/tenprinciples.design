@@ -24,7 +24,7 @@
     "@astrojs/cloudflare": "12.6.11",
     "@astrojs/ts-plugin": "1.10.5",
     "@tailwindcss/cli": "4.1.17",
-    "@types/node": "22.14.1",
+    "@types/node": "24.13.6",
     "lint-staged": "16.2.6",
     "prettier": "3.5.3",
     "prettier-plugin-astro": "0.14.1",
@@ -36,6 +36,6 @@
   },
   "packageManager": "pnpm@10.23.0",
   "engines": {
-    "node": "22"
+    "node": "24"
   }
 }
