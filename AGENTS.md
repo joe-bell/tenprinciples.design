@@ -9,7 +9,7 @@ Public repo, public site, open to outside contributions.
   `@astrojs/cloudflare` (`wrangler.jsonc`).
 - **Tailwind 4** built as a **separate step** — `build:css` runs the Tailwind CLI into
   `src/styles/output.css` (gitignored), which `src/layouts/root.astro` inlines with `?raw`.
-- **pnpm** (see `packageManager`), **Node 22** (`.nvmrc`, and `engine-strict=true` in
+- **pnpm** (see `packageManager`), **Node 22** (`.node-version`, and `engine-strict=true` in
   `.npmrc` means other majors are refused).
 
 ## Layout
