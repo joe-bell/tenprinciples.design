@@ -43,5 +43,7 @@ pnpm preview
 
 ## Reviewing
 
-CI is `prettier --check` only — no tests, no type-check, no build. Read
+Two checks are required on every pull request: the `prettier` CI job
+(`prettier --check`) and `Workers Builds: tenprinciples-design`, which runs
+`pnpm run build` in Cloudflare. There are no tests. Read
 [REVIEW.md](./REVIEW.md) before reviewing a pull request.

@@ -1,7 +1,8 @@
 # Review notes
 
-What to check on a pull request to this repo. CI runs `prettier --check` and nothing
-else — no tests, no type-check, no build — so review is the only other safety net.
+What to check on a pull request to this repo. The required checks are `prettier --check`
+and the Cloudflare build (`pnpm run build`); there are no tests, so review is the only
+other safety net.
 Formatting is already prettier's job and is not repeated here.
 
 ## 1. The principles' wording
@@ -38,10 +39,12 @@ styling.
 `src/content.config.ts` defines the collection with a glob loader and **no schema**, so
 nothing validates content shape. That check is yours.
 
-## 3. CI does not build the site
+## 3. The build runs in Cloudflare, not GitHub Actions
 
-`pnpm build` is `build:css && astro check && astro build`. For anything touching `src/`,
-run it locally before approving.
+`pnpm build` is `build:css && astro check && astro build`. The required
+`Workers Builds: tenprinciples-design` check runs it on every pull request and uploads a
+preview version, so a failing build blocks the merge. A passing build says nothing about
+how the page looks: for anything touching `src/`, open the preview before approving.
 
 Tailwind is a separate step: `build:css` writes `src/styles/output.css`, which is gitignored
 and inlined into every page via `?raw` in `src/layouts/root.astro`. A bad class name or a
