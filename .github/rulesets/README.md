@@ -20,8 +20,8 @@ call by a repository admin. Edit the JSON, re-apply, commit.
   `false`: a branch need not be up to date with `main`, but a merge conflict
   still blocks the merge.
 - **`bypass_actors`** names one person: the maintainer, Joe (`7349341`), in
-  `always` mode. He is the only one who can merge, and he can also
-  force-push, push directly, or merge past a failing check when he chooses to.
+  `always` mode. The maintainer is the only one who can merge, and can also
+  force-push, push directly, or merge past a failing check when needed.
 
 The Cloudflare check is safe to require only while the Workers Builds project
 has no build watch paths, so every commit builds. If an include list is ever

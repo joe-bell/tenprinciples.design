@@ -31,7 +31,7 @@ pnpm preview
 
 ## Merging and repo hygiene
 
-- **Only the maintainer merges.** The `main` ruleset restricts updates to him
+- **Only the maintainer merges.** The `main` ruleset restricts updates to the maintainer
   (see [`.github/rulesets/README.md`](./.github/rulesets/README.md)). Agents
   open pull requests and get them green; they never merge or enable
   auto-merge.
