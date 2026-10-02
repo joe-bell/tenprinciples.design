@@ -29,6 +29,18 @@ pnpm build    # build:css + astro check + astro build
 pnpm preview
 ```
 
+## Merging and repo hygiene
+
+- **Only the maintainer merges.** The `main` ruleset restricts updates to the maintainer
+  (see [`.github/rulesets/README.md`](./.github/rulesets/README.md)). Agents
+  open pull requests and get them green; they never merge or enable
+  auto-merge.
+- **This repo is public, so everything written here is published.** Files,
+  commits, branch names, pull request titles and descriptions, and comments
+  must not mention the maintainer's private repositories, internal tooling,
+  automation, or plans. Describe the change itself and nothing about where it
+  came from.
+
 ## Reviewing
 
 CI is `prettier --check` only — no tests, no type-check, no build. Read

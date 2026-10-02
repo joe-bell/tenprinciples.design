@@ -8,6 +8,9 @@ call by a repository admin. Edit the JSON, re-apply, commit.
 
 - **`non_fast_forward`** blocks force-pushes (history rewrites).
 - **`deletion`** blocks deleting the branch.
+- **`update`** restricts updates to the bypass actor, so only the maintainer
+  can merge a pull request or otherwise move `main`. Contributors and bots can
+  still open pull requests and run checks.
 - **`pull_request`** makes every change land through a pull request, merged
   by squash only. It asks for no approving review, so a PR merges once its
   checks pass.
@@ -17,8 +20,8 @@ call by a repository admin. Edit the JSON, re-apply, commit.
   `false`: a branch need not be up to date with `main`, but a merge conflict
   still blocks the merge.
 - **`bypass_actors`** names one person: the maintainer, Joe (`7349341`), in
-  `always` mode. He can force-push, push directly, or merge past a failing
-  check when he chooses to; nobody else can.
+  `always` mode. The maintainer is the only one who can merge, and can also
+  force-push, push directly, or merge past a failing check when needed.
 
 The Cloudflare check is safe to require only while the Workers Builds project
 has no build watch paths, so every commit builds. If an include list is ever
