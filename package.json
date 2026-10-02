@@ -16,7 +16,7 @@
     "tailwind": "pnpx @tailwindcss/cli -i ./src/styles/input.css -o ./src/styles/output.css"
   },
   "dependencies": {
-    "@astrojs/check": "0.9.5",
+    "@astrojs/check": "0.9.10",
     "@plausible-analytics/tracker": "0.4.4",
     "astro": "^5.16.0"
   },
