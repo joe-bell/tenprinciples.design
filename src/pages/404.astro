@@ -4,6 +4,7 @@ import { isProduction } from "@/utils";
 
 const title = "404";
 const description = "Page not found";
+const PROD = isProduction(Astro.url);
 ---
 
 <Root title={title} description={description}>
@@ -20,7 +21,7 @@ const description = "Page not found";
   </main>
 </Root>
 
-<script is:inline define:vars={{ PROD: isProduction(Astro.url) }}>
+<script is:inline define:vars={{ PROD }}>
   PROD &&
     document.addEventListener("DOMContentLoaded", function () {
       plausible("404", { props: { path: document.location.pathname } });

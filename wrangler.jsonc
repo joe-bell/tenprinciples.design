@@ -3,7 +3,7 @@
   "name": "tenprinciples-design",
   "workers_dev": true,
   "preview_urls": true,
-  "main": "dist/_worker.js/index.js",
+  "main": "@astrojs/cloudflare/entrypoints/server",
   "compatibility_date": "2025-11-25",
   "assets": {
     "binding": "ASSETS",
