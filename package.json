@@ -13,7 +13,7 @@
     "prettier": "prettier --config .prettierrc.json --ignore-unknown --no-error-on-unmatched-pattern",
     "preview": "astro preview",
     "start": "astro dev",
-    "tailwind": "pnpx @tailwindcss/cli -i ./src/styles/input.css -o ./src/styles/output.css"
+    "tailwind": "tailwindcss -i ./src/styles/input.css -o ./src/styles/output.css"
   },
   "dependencies": {
     "@astrojs/check": "0.9.10",
@@ -31,7 +31,7 @@
     "prettier-plugin-packagejson": "2.5.19",
     "prettier-plugin-tailwindcss": "0.7.1",
     "tailwindcss": "4.1.17",
-    "typescript": "5.0.4",
+    "typescript": "5.9.3",
     "wrangler": "4.48.0"
   },
   "packageManager": "pnpm@10.23.0",
