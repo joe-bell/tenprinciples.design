@@ -5,5 +5,9 @@ import { config } from "./src/config";
 export default defineConfig({
   site: config.site,
   output: "static",
-  adapter: cloudflare(),
+  session: false,
+  compressHTML: true,
+  adapter: cloudflare({
+    imageService: "compile",
+  }),
 });

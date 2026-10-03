@@ -5,7 +5,7 @@ Public repo, public site, open to outside contributions.
 
 ## Stack
 
-- **Astro 5**, `output: "static"`, deployed to **Cloudflare Workers** via
+- **Astro 7**, `output: "static"`, deployed to **Cloudflare Workers** via
   `@astrojs/cloudflare` (`wrangler.jsonc`).
 - **Tailwind 4** built as a **separate step** — `build:css` runs the Tailwind CLI into
   `src/styles/output.css` (gitignored), which `src/layouts/root.astro` inlines with `?raw`.
