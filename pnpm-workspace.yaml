@@ -1,3 +1,12 @@
 ignoredBuiltDependencies:
   - "@parcel/watcher"
   - workerd
+
+# Scoped security overrides for development-only dependencies. Drop each one
+# once its parent resolves a patched version on its own.
+overrides:
+  # GHSA-rfgv-xxqx-mfg5, GHSA-w293-vg96-wgc3 and others, fixed in 7.29.1.
+  # miniflare (via @cloudflare/vite-plugin) pins undici 7.29.0 exactly.
+  "miniflare>undici": "7.29.1"
+  # GHSA-48c2-rrv3-qjmp, fixed in 2.8.3.
+  "lint-staged>yaml": "2.8.3"
