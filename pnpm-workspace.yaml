@@ -10,3 +10,6 @@ overrides:
   "miniflare>undici": "7.29.1"
   # GHSA-48c2-rrv3-qjmp, fixed in 2.8.3.
   "lint-staged>yaml": "2.8.3"
+  # GHSA-wq5f-xc86-pv6w, fixed in 0.35.5. miniflare pins sharp 0.35.4 exactly;
+  # astro's own range already resolves the patched release.
+  "miniflare>sharp": "0.35.5"
