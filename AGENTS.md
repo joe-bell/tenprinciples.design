@@ -11,6 +11,10 @@ Public repo, public site, open to outside contributions.
   `src/styles/output.css` (gitignored), which `src/layouts/root.astro` inlines with `?raw`.
 - **pnpm** (see `packageManager`), **Node 24** (`.node-version`, and `engine-strict=true` in
   `.npmrc` means other majors are refused).
+- **Cloud sessions**: `.claude/hooks/session-start.sh`, a SessionStart hook registered in
+  `.claude/settings.json`, runs `.agents/setup.sh` in Claude Code cloud sessions only. It
+  installs the `.node-version` Node and runs `pnpm install`; put repo-specific extras in
+  `.agents/setup.local.sh` rather than editing the script.
 
 ## Layout
 
