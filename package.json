@@ -23,6 +23,7 @@
   "devDependencies": {
     "@astrojs/cloudflare": "14.3.3",
     "@astrojs/ts-plugin": "1.10.12",
+    "@emnapi/runtime": "1.11.3",
     "@tailwindcss/cli": "4.1.17",
     "@types/node": "24.13.6",
     "lint-staged": "16.2.6",
