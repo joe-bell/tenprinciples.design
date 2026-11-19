@@ -5,9 +5,11 @@ ignoredBuiltDependencies:
 # Scoped security overrides for development-only dependencies. Drop each one
 # once its parent resolves a patched version on its own.
 overrides:
-  # GHSA-rfgv-xxqx-mfg5, GHSA-w293-vg96-wgc3 and others, fixed in 7.29.1.
-  # miniflare (via @cloudflare/vite-plugin) pins undici 7.29.0 exactly.
-  "miniflare>undici": "7.29.1"
+  # GHSA-rfgv-xxqx-mfg5, GHSA-w293-vg96-wgc3 and others, fixed in 7.29.1;
+  # GHSA-2m5v-pch6-74hx, GHSA-4w7w-5xrc-9h26, GHSA-qrxm-fqhp-jwvm and others,
+  # fixed in 7.30.1. miniflare (via @cloudflare/vite-plugin) pins undici
+  # 7.29.0 exactly.
+  "miniflare>undici": "7.30.2"
   # GHSA-48c2-rrv3-qjmp, fixed in 2.8.3.
   "lint-staged>yaml": "2.8.3"
   # GHSA-wq5f-xc86-pv6w, fixed in 0.35.5. miniflare pins sharp 0.35.4 exactly;

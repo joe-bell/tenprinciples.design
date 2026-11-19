@@ -21,7 +21,7 @@
     "astro": "7.4.7"
   },
   "devDependencies": {
-    "@astrojs/cloudflare": "14.3.3",
+    "@astrojs/cloudflare": "14.4.7",
     "@astrojs/ts-plugin": "1.10.12",
     "@emnapi/runtime": "1.11.3",
     "@tailwindcss/cli": "4.1.17",
@@ -33,7 +33,7 @@
     "prettier-plugin-tailwindcss": "0.7.1",
     "tailwindcss": "4.1.17",
     "typescript": "5.9.3",
-    "wrangler": "4.141.0"
+    "wrangler": "4.161.0"
   },
   "packageManager": "pnpm@10.23.0",
   "engines": {
