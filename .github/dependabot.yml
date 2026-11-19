@@ -7,7 +7,8 @@
 #   compromised or quickly yanked releases.
 # - `rebase-strategy: disabled` stops Dependabot rebasing the pull request
 #   after every merge to `main`, each of which would re-run CI. Branches need
-#   not be up to date to merge; on a conflict, comment `@dependabot rebase`.
+#   not be up to date to merge; on a conflict, comment `@dependabot recreate`
+#   (`@dependabot rebase` did nothing here on 2026-11-18).
 # - `versioning-strategy: increase` raises the exact pin rather than widening
 #   it into a range.
 # - GitHub Actions are checked in the workflows and in the composite actions
@@ -30,6 +31,13 @@ updates:
       default-days: 7
     rebase-strategy: disabled
     versioning-strategy: increase
+    ignore:
+      # @emnapi/runtime is pinned to 1.x so @astrojs/astro2tsx's
+      # @napi-rs/wasm-runtime peer matches the @emnapi/core 1.x it ships;
+      # with the 2.0 beta, @astrojs/check fails to load and the build breaks.
+      # Drop once astro2tsx supports the 2.x runtime.
+      - dependency-name: "@emnapi/runtime"
+        versions: [">=2"]
 
   - package-ecosystem: github-actions
     directories:
