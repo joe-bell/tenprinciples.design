@@ -38,6 +38,14 @@ updates:
       # Drop once astro2tsx supports the 2.x runtime.
       - dependency-name: "@emnapi/runtime"
         versions: [">=2"]
+      # astro check refuses TypeScript 7, so a 7.x bump fails the build.
+      # Drop once astro's own check command supports it, or the build stops
+      # running astro check.
+      - dependency-name: "typescript"
+        versions: [">=7"]
+      # Keep the Node types on the major that .node-version pins.
+      - dependency-name: "@types/node"
+        versions: [">=25"]
 
   - package-ecosystem: github-actions
     directories:
