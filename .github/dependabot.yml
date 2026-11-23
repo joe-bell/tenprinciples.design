@@ -46,6 +46,11 @@ updates:
       # Keep the Node types on the major that .node-version pins.
       - dependency-name: "@types/node"
         versions: [">=25"]
+      # prettier-plugin-astro 1.x reformats the .astro pages, splitting inline
+      # elements onto new lines, which can change rendered whitespace. Drop
+      # once a 1.x release has been checked against the pages.
+      - dependency-name: "prettier-plugin-astro"
+        versions: [">=1"]
 
   - package-ecosystem: github-actions
     directories:

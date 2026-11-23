@@ -1,3 +1,7 @@
+# Never install a version published less than 7 days ago, matching the
+# Dependabot cooldown in .github/dependabot.yml.
+minimumReleaseAge: 10080
+
 ignoredBuiltDependencies:
   - "@parcel/watcher"
   - workerd
