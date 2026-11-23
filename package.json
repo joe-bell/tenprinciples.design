@@ -16,24 +16,24 @@
     "tailwind": "tailwindcss -i ./src/styles/input.css -o ./src/styles/output.css"
   },
   "dependencies": {
-    "@astrojs/check": "0.9.10",
-    "@plausible-analytics/tracker": "0.4.4",
-    "astro": "7.4.7"
+    "@astrojs/check": "0.9.12",
+    "@plausible-analytics/tracker": "0.4.7",
+    "astro": "7.4.12"
   },
   "devDependencies": {
-    "@astrojs/cloudflare": "14.4.7",
-    "@astrojs/ts-plugin": "1.10.12",
+    "@astrojs/cloudflare": "14.4.8",
+    "@astrojs/ts-plugin": "1.11.0",
     "@emnapi/runtime": "1.11.3",
-    "@tailwindcss/cli": "4.1.17",
-    "@types/node": "24.13.6",
-    "lint-staged": "16.2.6",
-    "prettier": "3.5.3",
+    "@tailwindcss/cli": "4.3.5",
+    "@types/node": "24.19.2",
+    "lint-staged": "17.6.0",
+    "prettier": "3.10.1",
     "prettier-plugin-astro": "0.14.1",
-    "prettier-plugin-packagejson": "2.5.19",
-    "prettier-plugin-tailwindcss": "0.7.1",
-    "tailwindcss": "4.1.17",
+    "prettier-plugin-packagejson": "3.1.0",
+    "prettier-plugin-tailwindcss": "0.8.1",
+    "tailwindcss": "4.3.5",
     "typescript": "5.9.3",
-    "wrangler": "4.161.0"
+    "wrangler": "4.162.0"
   },
   "packageManager": "pnpm@10.23.0",
   "engines": {
